@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Semilla - Chatbot de Fútbol</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- Encabezado del Chatbot -->
+        <header class="chat-header">
+            <div class="bot-avatar">⚽</div>
+            <div class="bot-info">
+                <h2>Semilla</h2>
+                <p>El bot futbolero ⚽🔥</p>
+            </div>
+        </header>
+
+        <!-- ÁREA DE CHAT (Partes del boceto) -->
+        <main id="area-de-chat" class="area-de-chat">
+            <!-- Los mensajes del chat se generarán dinámicamente aquí -->
+        </main>
+
+        <!-- SELECCIÓN DE OPCIONES (Partes del boceto) -->
+        <section id="seleccion-de-opciones" class="seleccion-de-opciones">
+            <!-- Los botones de opciones se insertarán aquí según el nodo actual -->
+        </section>
+
+        <!-- INGRESO DE TEXTO (Partes del boceto) -->
+        <section id="ingreso-de-texto" class="ingreso-de-texto">
+            <form id="form-ingreso" class="form-ingreso">
+                <input 
+                    type="text" 
+                    id="input-usuario" 
+                    placeholder="Escribe tu respuesta..." 
+                    disabled 
+                    autocomplete="off"
+                >
+                <button type="submit" id="btn-enviar" disabled>Enviar</button>
+            </form>
+            <p id="mensaje-error" class="mensaje-error"></p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
