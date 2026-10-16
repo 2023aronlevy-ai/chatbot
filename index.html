@@ -1,48 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bot Semilla - Chatbot de Fútbol</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bot Semilla - Pasión por el Fútbol</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="chat-container">
-        <!-- Encabezado del Chatbot -->
-        <header class="chat-header">
-            <div class="bot-avatar">⚽</div>
-            <div class="bot-info">
-                <h2>Semilla</h2>
-                <p>El bot futbolero ⚽🔥</p>
-            </div>
-        </header>
 
-        <!-- ÁREA DE CHAT (Partes del boceto) -->
-        <main id="area-de-chat" class="area-de-chat">
-            <!-- Los mensajes del chat se generarán dinámicamente aquí -->
-        </main>
+  <!-- Contenedor principal de la interfaz del chatbot -->
+  <main class="chat-container">
+    
+    <!-- Encabezado del Chatbot -->
+    <header class="chat-header">
+      <div class="avatar">⚽</div>
+      <div class="header-info">
+        <h1>Semilla</h1>
+        <span class="status">El bot futbolero ⚽ 🔥</span>
+      </div>
+    </header>
 
-        <!-- SELECCIÓN DE OPCIONES (Partes del boceto) -->
-        <section id="seleccion-de-opciones" class="seleccion-de-opciones">
-            <!-- Los botones de opciones se insertarán aquí según el nodo actual -->
-        </section>
+    <!-- Área de chat (mensajes) -->
+    <section class="area-de-chat" id="area-de-chat">
+      <!-- Los mensajes se insertarán dinámicamente -->
+    </section>
 
-        <!-- INGRESO DE TEXTO (Partes del boceto) -->
-        <section id="ingreso-de-texto" class="ingreso-de-texto">
-            <form id="form-ingreso" class="form-ingreso">
-                <input 
-                    type="text" 
-                    id="input-usuario" 
-                    placeholder="Escribe tu respuesta..." 
-                    disabled 
-                    autocomplete="off"
-                >
-                <button type="submit" id="btn-enviar" disabled>Enviar</button>
-            </form>
-            <p id="mensaje-error" class="mensaje-error"></p>
-        </section>
-    </div>
+    <!-- Selección de opciones (botones de menú) -->
+    <section class="seleccion-de-opciones" id="seleccion-de-opciones">
+      <!-- Los botones de opciones se generarán dinámicamente -->
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Ingreso de texto -->
+    <section class="ingreso-de-texto" id="ingreso-de-texto">
+      <form id="formulario-ingreso" autocomplete="off">
+        <input 
+          type="text" 
+          id="campo-texto" 
+          placeholder="Escribe tu respuesta..." 
+          disabled
+        >
+        <button type="submit" id="boton-enviar" disabled>Enviar</button>
+      </form>
+      <span class="error-mensaje" id="error-mensaje"></span>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
