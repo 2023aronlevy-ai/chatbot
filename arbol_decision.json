@@ -1,0 +1,116 @@
+{
+  "inicio": {
+    "id": "inicio",
+    "texto": "¡Hola! Soy Semilla ⚽, el bot más futbolero. Para arrancar a charlar como en la cancha, ¿cómo te llamás?",
+    "requiereInput": true,
+    "validacion": "nombre",
+    "guardarVariable": true,
+    "siguiente": "menu_principal"
+  },
+  "menu_principal": {
+    "id": "menu_principal",
+    "texto": "¡Qué grande {eleccion}! Decime, ¿de qué querés hablar hoy?",
+    "opciones": [
+      {
+        "texto": "¿Qué club creés que es más grande?",
+        "siguiente": "pregunta_club"
+      },
+      {
+        "texto": "¿Cuál es tu jugador favorito?",
+        "siguiente": "pregunta_jugador"
+      },
+      {
+        "texto": "Terminar conversación",
+        "siguiente": "despedida"
+      }
+    ]
+  },
+  "pregunta_club": {
+    "id": "pregunta_club",
+    "texto": "¡Uff, debate picante! Para vos {eleccion}, ¿quién manda en la historia?",
+    "opciones": [
+      {
+        "texto": "Boca Juniors",
+        "siguiente": "respuesta_club",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "River Plate",
+        "siguiente": "respuesta_club",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "Real Madrid",
+        "siguiente": "respuesta_club",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "Volver al menú principal",
+        "siguiente": "menu_principal"
+      }
+    ]
+  },
+  "respuesta_club": {
+    "id": "respuesta_club",
+    "texto": "¡Epa! Elegiste {eleccion}. ¡Respetable elección para armar discusión de café! ☕⚽",
+    "opciones": [
+      {
+        "texto": "Volver al menú principal",
+        "siguiente": "menu_principal"
+      },
+      {
+        "texto": "Terminar conversación",
+        "siguiente": "despedida"
+      }
+    ]
+  },
+  "pregunta_jugador": {
+    "id": "pregunta_jugador",
+    "texto": "Si tuvieras que armar un picado, ¿a quién ponés primero en tu equipo?",
+    "opciones": [
+      {
+        "texto": "Lionel Messi 🐐",
+        "siguiente": "respuesta_jugador",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "Diego Maradona 🔟",
+        "siguiente": "respuesta_jugador",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "Cristiano Ronaldo ⚡",
+        "siguiente": "respuesta_jugador",
+        "guardarEleccion": true
+      },
+      {
+        "texto": "Volver al menú principal",
+        "siguiente": "menu_principal"
+      }
+    ]
+  },
+  "respuesta_jugador": {
+    "id": "respuesta_jugador",
+    "texto": "¡Qué calidad! Tener a {eleccion} en la cancha te asegura ganar el partido sin despeinarte.",
+    "opciones": [
+      {
+        "texto": "Volver al menú principal",
+        "siguiente": "menu_principal"
+      },
+      {
+        "texto": "Terminar conversación",
+        "siguiente": "despedida"
+      }
+    ]
+  },
+  "despedida": {
+    "id": "despedida",
+    "texto": "¡Un gusto haber charlado de fútbol con vos! Nos vemos en la próxima fecha. 👋⚽",
+    "opciones": [
+      {
+        "texto": "Volver a empezar",
+        "siguiente": "inicio"
+      }
+    ]
+  }
+}
