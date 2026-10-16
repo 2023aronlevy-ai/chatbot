@@ -1,0 +1,122 @@
+/* Variables de tema oscuro y moderno */
+:root {
+    --bg-main: #0f172a;
+    --bg-card: #1e293b;
+    --bg-chat: #090d16;
+    --primary: #10b981;
+    --primary-hover: #059669;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --bot-msg: #1e293b;
+    --user-msg: #047857;
+    --border-color: #334155;
+    --error-color: #ef4444;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+/* Contenedor principal responsive */
+.chat-container {
+    width: 100%;
+    max-width: 480px;
+    height: 90vh;
+    max-height: 750px;
+    background-color: var(--bg-card);
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Header del chatbot */
+.chat-header {
+    background-color: #1e293b;
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.bot-avatar {
+    font-size: 1.8rem;
+    background-color: var(--primary);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bot-info h2 {
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.bot-info p {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+/* 1. área de chat */
+.area-de-chat {
+    flex: 1;
+    background-color: var(--bg-chat);
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.mensaje {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.mensaje.bot {
+    background-color: var(--bot-msg);
+    color: var(--text-main);
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+    border: 1px solid var(--border-color);
+}
+
+.mensaje.usuario {
+    background-color: var(--user-msg);
+    color: #ffffff;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+}
+
+/* 2. seleccion de opciones */
+.seleccion-de-opciones {
+    padding: 12px 15px;
+    background-color: var(--bg-card);
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap
