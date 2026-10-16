@@ -1,4 +1,4 @@
-// Referencias a las secciones exactas definidas en la interfaz y el boceto
+// Referencias a las secciones exactas definidas en la interfaz y el boceto// Elementos de la interfaz según boceto y HTML
 const areaDeChat = document.getElementById('area-de-chat');
 const seleccionDeOpciones = document.getElementById('seleccion-de-opciones');
 const campoTexto = document.getElementById('campo-texto');
@@ -6,56 +6,52 @@ const botonEnviar = document.getElementById('boton-enviar');
 const formularioIngreso = document.getElementById('formulario-ingreso');
 const errorMensaje = document.getElementById('error-mensaje');
 
-// Variables globales de estado del chat
+// Estado interno
 let arbolDecision = {};
 let nodoActual = null;
-let eleccionGuardada = ""; // Memoria simple para recordar la selección del usuario
+let eleccionGuardada = "";
 
-// Carga inicial del archivo JSON mediante fetch
-fetch('arbol_decision.json')
-  .then(response => {
+// Función asíncrona para la carga del JSON compatible con GitHub Pages y servidores locales
+async function cargarArbol() {
+  try {
+    const response = await fetch('./arbol_decision.json');
     if (!response.ok) {
-      throw new Error("No se pudo cargar el archivo");
+      throw new Error(`Estado de respuesta HTTP: ${response.status}`);
     }
-    return response.json();
-  })
-  .then(data => {
-    arbolDecision = data;
-    // Iniciar conversación desde el nodo 'inicio'
+    arbolDecision = await response.json();
     irANodo('inicio');
-  })
-  .catch(error => {
-    // Manejo explícito de error si se abre por doble clic sin servidor local
+  } catch (error) {
+    console.error("Error al cargar arbol_decision.json:", error);
     mostrarMensajeBot("Abrí el proyecto con Live Server o un servidor local para que pueda leer arbol_decision.json");
-    console.error("Error al cargar JSON:", error);
-  });
+  }
+}
 
-// Función para procesar y renderizar un nodo específico del árbol
+// Iniciar la carga
+cargarArbol();
+
+// Navega e interactúa con un nodo específico
 function irANodo(nodeId) {
   nodoActual = arbolDecision[nodeId];
 
   if (!nodoActual) {
-    console.error(`El nodo con id '${nodeId}' no existe.`);
+    console.error(`El nodo '${nodeId}' no existe en el JSON.`);
     return;
   }
 
-  // Reemplazar la variable personalizada si existe en el texto (ej. {eleccion})
+  // Reemplazo dinámico de variables en el texto
   let textoBot = nodoActual.texto.replace('{eleccion}', eleccionGuardada);
   mostrarMensajeBot(textoBot);
 
-  // Limpiar controles previos
   limpiarOpciones();
   desactivarInput();
 
-  // Configurar modo de interacción según el tipo de nodo (Botones vs Input)
   if (nodoActual.requiereInput) {
     activarInput(nodoActual.validacion);
-  } else {
+  } else if (nodoActual.opciones) {
     generarBotonesOpciones(nodoActual.opciones);
   }
 }
 
-// Muestra el mensaje enviado por el bot en el área de chat
 function mostrarMensajeBot(texto) {
   const divMsg = document.createElement('div');
   divMsg.classList.add('mensaje', 'bot');
@@ -64,7 +60,6 @@ function mostrarMensajeBot(texto) {
   scrollAlFinal();
 }
 
-// Muestra el mensaje del usuario en el área de chat
 function mostrarMensajeUsuario(texto) {
   const divMsg = document.createElement('div');
   divMsg.classList.add('mensaje', 'usuario');
@@ -73,10 +68,7 @@ function mostrarMensajeUsuario(texto) {
   scrollAlFinal();
 }
 
-// Genera dinámicamente las opciones de respuesta por botones
 function generarBotonesOpciones(opciones) {
-  if (!opciones || opciones.length === 0) return;
-
   opciones.forEach(opcion => {
     const btn = document.createElement('button');
     btn.classList.add('btn-opcion');
@@ -85,12 +77,10 @@ function generarBotonesOpciones(opciones) {
     btn.addEventListener('click', () => {
       mostrarMensajeUsuario(opcion.texto);
 
-      // Guardar elección si la opción lo solicita
       if (opcion.guardarEleccion) {
         eleccionGuardada = opcion.texto;
       }
 
-      // Reiniciar memoria si vuelve al inicio o termina
       if (opcion.siguiente === 'inicio') {
         eleccionGuardada = "";
       }
@@ -102,49 +92,42 @@ function generarBotonesOpciones(opciones) {
   });
 }
 
-// Habilita el campo de entrada cuando es imperioso solicitar un dato
 function activarInput(tipoValidacion) {
   campoTexto.disabled = false;
   botonEnviar.disabled = false;
   campoTexto.focus();
-  campoTexto.placeholder = tipoValidacion === 'nombre' ? "Ingresá tu nombre..." : "Ingresá un valor...";
+  campoTexto.placeholder = tipoValidacion === 'nombre' ? "Ingresa tu nombre..." : "Escribe tu respuesta...";
 }
 
-// Deshabilita el área de ingreso de texto
 function desactivarInput() {
   campoTexto.disabled = true;
   botonEnviar.disabled = true;
   campoTexto.value = "";
-  campoTexto.placeholder = "Escribí aquí...";
+  campoTexto.placeholder = "Escribe tu respuesta...";
   errorMensaje.textContent = "";
 }
 
-// Manejador del formulario de ingreso de datos
 formularioIngreso.addEventListener('submit', (e) => {
   e.preventDefault();
   const valor = campoTexto.value.trim();
   const tipoValidacion = nodoActual.validacion;
 
-  // Validaciones del dato ingresado
   if (!valor) {
-    errorMensaje.textContent = "Por favor ingresá un dato.";
+    errorMensaje.textContent = "Por favor ingresa un dato.";
     return;
   }
 
   if (tipoValidacion === 'nombre') {
-    // Verifica que solo contenga letras y espacios (sin números)
     const regexNombre = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     if (!regexNombre.test(valor)) {
-      errorMensaje.textContent = "El nombre no debe contener números ni símbolos.";
+      errorMensaje.textContent = "El nombre no debe contener números ni caracteres especiales.";
       return;
     }
   }
 
-  // Si pasa la validación
   errorMensaje.textContent = "";
   mostrarMensajeUsuario(valor);
 
-  // Guardar nombre si aplica
   if (nodoActual.guardarVariable) {
     eleccionGuardada = valor;
   }
@@ -154,12 +137,10 @@ formularioIngreso.addEventListener('submit', (e) => {
   irANodo(siguienteNodo);
 });
 
-// Desplazamiento automático al final del área de chat
 function scrollAlFinal() {
   areaDeChat.scrollTop = areaDeChat.scrollHeight;
 }
 
-// Limpia los botones de opciones generados anteriormente
 function limpiarOpciones() {
   seleccionDeOpciones.innerHTML = "";
 }
